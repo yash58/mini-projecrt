@@ -1,0 +1,20 @@
+from matplotlib import pyplot
+from Tkinter import *
+import csv
+import numpy 
+
+def Graph():							
+	f = open('data.txt', 'w')
+	i = 0
+	year = e2.get()
+	mylist = [10]
+	y = [10]
+	year = int (year)
+	mylist[0] = year
+	r = 2014 - year
+	for i in range(0,int(r)):
+		mylist= int(year + i)
+		s = str(mylist)
+		f.write(s)
+		f.write('\n')
+	f.close()
