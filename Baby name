@@ -4,7 +4,7 @@ import csv
 import numpy 
 
 def Graph():							
-	f = open('data.txt', 'w')
+	f = open('d.txt', 'w')
 	i = 0
 	year = e2.get()
 	mylist = [10]
