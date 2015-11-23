@@ -1,0 +1,24 @@
+def graph_1():                          #FUNCTION
+    entr=Tk()
+    GENDER=["Male","Female"]
+    Label(entr,text='Enter Name').grid(row=0)
+    Label(entr,text='Select Year').grid(row=1)
+    Label(entr,text='Select Gender').grid(row=2)
+    entr.wm_title("Graph")
+    global r1
+    r1=Entry(entr)
+    global r2
+    r2=StringVar(entr)
+    r2.set(OPTIONS[0]) 
+    w = apply(OptionMenu, (entr, r2) + tuple(OPTIONS))
+    global r3
+    r3=StringVar(entr)
+    r3.set(GENDER[0]) 
+    h1 = apply(OptionMenu, (entr, r3) + tuple(GENDER))
+    r1.grid(row=0,column=1)
+    w.grid(row=1,column=1)
+    h1.grid(row=2,column=1)
+    Button(entr,height=5,width=20,text='SHOW',command=b1).grid(row=3,column=0,sticky=W,pady=4)
+    Button(entr,height=5,width=20,text='EXIT',command=entr.destroy).grid(row=3,column=1,sticky=W,pady=4)
+    
+    entr.mainloop()
