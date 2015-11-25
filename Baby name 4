@@ -1,0 +1,69 @@
+def Both():                         #FUNCTION INCLUDES BOTH CASES
+    ro1 = Tk()
+    ro1.wm_title("Top")
+    t1 = Text(ro1, width=40, height=40)
+    str1 = Scrollbar(ro1)
+    str1.pack(side=RIGHT, fill=Y)
+    t1.pack(side=LEFT, fill=Y)
+    str1.config(command=t1.yview)
+    t1.config(yscrollcommand=str1.set)
+    string1 = 'female'
+    string2 = r2.get()
+    xyz=(string1) + '_cy' + (string2) + '_top.csv'
+     
+    file1=open(xyz)
+    csv_f=csv.reader(file1)
+    file2 = open('d2.txt','w')
+    str1 = '\n=====FEMALE======\n'
+    file2.write(str1)
+    xyz=r1.get()
+    for row in csv_f:
+        i=0
+        y=row[2]
+        y=y.replace("=","")
+        if(y == "Position"):
+                p=0
+        else:
+            if(int (y) <= int (xyz)):
+                str1 = str(row[2])
+                str1 = str1.replace("="," ")   
+                file2.write(str1)
+                file2.write('\t')
+                str1 = str(row[1]) 
+                file2.write(str1)
+                file2.write('\t')
+                str1 = str(row[0]) 
+                file2.write(str1)
+                file2.write('\n')  
+ 
+    str1 = '\n=======MALE=======\n'  
+    file2.write(str1)
+    string1 = 'male'
+    
+    string2 = r2.get()
+    xyz=(string1) + '_cy' + (string2) + '_top.csv'
+     
+    file1=open(xyz)
+    csv_f=csv.reader(file1)
+    xyz=r1.get()
+    for row in csv_f:
+        y=row[2]
+        y=y.replace("=","")
+        if(y == "Position"):
+            p=0
+        else:
+            if(int (y) <= int (xyz)):
+                str1 = str(row[2])
+                str1 = str1.replace("=","")   
+                file2.write(str1)
+                file2.write('\t')
+                str1 = str(row[1]) 
+                file2.write(str1)
+                file2.write('\t')
+                str1 = str(row[0]) 
+                file2.write(str1)
+                file2.write('\n')  
+    file2.close()  
+    file3 = open("d2.txt","r")
+    t1.insert(END, file3.read())
+    ro1.mainloop() 
