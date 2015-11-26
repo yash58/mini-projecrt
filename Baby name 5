@@ -1,0 +1,8 @@
+def b():                       #FUNCTION
+    string1 = r3.get()
+    string1 = string1.lower()
+    string2 = 'both'
+    if(string1 == string2):   
+        Both()
+    else:
+        top_1() 
