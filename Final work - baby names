@@ -1,0 +1,315 @@
+from matplotlib import pyplot 
+from Tkinter import *
+import csv
+import numpy 
+
+def gr():                        #FUNCTION
+    file1 = open('d1.txt', 'w')
+    j = 0
+    ye = r2.get()
+    l1 = [10]
+    p1 = [10]
+    ye = int (ye)
+    l1[0] = ye
+    ri = 2014 - ye
+    for j in range(0,int(ri)):
+        l1= int(ye + j)
+        str1 = str(l1)
+        file1.write(str1)
+        file1.write('\n')
+    file1.close()
+
+    file2 = open('d2.txt','w')
+    while(ye <= 2013):
+        string2 = r3.get()
+        p2=string2.lower() + '_cy' + str(ye) + '_top.csv'
+        file1=open(p2)
+        cv_file=csv.reader(file1)
+        string1 = r1.get()
+        head=next(cv_file)
+        for row in cv_file:
+            if(row[0] == string1.upper()):
+                p1= row[1]   
+                break
+        str1 = str(p1)
+        file2.write(str1)
+        file2.write('\n')  
+        ye = ye +1  
+    file2.close()
+    data = numpy.loadtxt("d1.txt")
+    data1 = numpy.loadtxt("d2.txt")
+    p2=numpy.loadtxt("d1.txt",unpack=True)
+    p1=numpy.loadtxt("d2.txt",unpack=True)
+    width = 0.5       # BARS WIDTH
+    fig, ax = pyplot.subplots()
+    ret2 = ax.bar(p2,p1, width, color='black')
+    pyplot.title('Popularity of Name')
+    pyplot.ylabel('Name Frequency')
+    pyplot.xlabel('Year')
+    pyplot.show()
+def gr1():                       #FUNCTION
+    file1 = open('data.dat', 'w')
+    j = 0
+    ye = r2.get()
+    l1 = [10]
+    p1 = [10]
+    ye = int (ye)
+    l1[0] = ye
+    ri = 2014 - ye
+    for j in range(0,int(ri)):
+        l1= int(ye + j)
+        str1 = str(l1)
+        file1.write(str1)
+        file1.write('\n')
+    file1.close()
+    file2 = open('data1.dat','w')
+    while(ye <= 2013):
+        string2 = r3.get()
+        p2=string2.lower() + '_cy' + str(ye) + '_top.csv'
+        file1=open(p2)
+        string1 = rc.get()
+        cv_file=csv.reader(file1)
+        head=next(cv_file)
+        for row in cv_file:
+            if(row[0] == string1.upper()):
+                p1= row[1]   
+                break
+        str1 = str(p1)
+        file2.write(str1)
+        file2.write('\n')  
+        ye = ye +1  
+    file2.close()
+    p2=numpy.loadtxt("data.dat",unpack=True)
+    p1=numpy.loadtxt("data1.dat",unpack=True)
+    width = 0.5       # BARS WIDTH
+    fig, ax = pyplot.subplots()
+    ret2 = ax.bar(p2,p1, width, color='black')
+    pyplot.title('Popularity of Name')
+    pyplot.ylabel('Name Frequency')
+    pyplot.xlabel('Year')
+    pyplot.show()
+def gr2():                          #FUNCTION
+    entry=Tk()
+    GENDER=["Male","Female"]
+    Label(entry,text='Enter Name').grid(row=0)
+    Label(entry,text='Select Year').grid(row=1)
+    Label(entry,text='Select Gender').grid(row=2)
+    entry.wm_title("Graph")
+    global r1
+    r1=Entry(entry)
+    global r2
+    r2=StringVar(entry)
+    r2.set(op[0]) 
+    w = apply(OptionMenu, (entry, r2) + tuple(op))
+    global r3
+    r3=StringVar(entry)
+    r3.set(GENDER[0]) 
+    h1 = apply(OptionMenu, (entry, r3) + tuple(GENDER))
+    r1.grid(row=0,column=1)
+    w.grid(row=1,column=1)
+    h1.grid(row=2,column=1)
+    Button(entry,height=5,width=20,text='SHOW',command=b1).grid(row=3,column=0,sticky=W,pady=4)
+    Button(entry,height=5,width=20,text='EXIT',command=entry.destroy).grid(row=3,column=1,sticky=W,pady=4)
+    
+    entry.mainloop()
+def bo():                         #FUNCTION INCLUDES BOTH CASES
+    ro1 = Tk()
+    ro1.wm_title("Top")
+    t1 = Text(ro1, width=40, height=40)
+    str1 = Scrollbar(ro1)
+    str1.pack(side=RIGHT, fill=Y)
+    t1.pack(side=LEFT, fill=Y)
+    str1.config(command=t1.yview)
+    t1.config(yscrollcommand=str1.set)
+    string1 = 'female'
+    string2 = r2.get()
+    p2=(string1) + '_cy' + (string2) + '_top.csv'
+     
+    file1=open(p2)
+    cv_file=csv.reader(file1)
+    file2 = open('d2.txt','w')
+    str1 = '\n=====FEMALE======\n'
+    file2.write(str1)
+    p2=r1.get()
+    for row in cv_file:
+        j=0
+        p1=row[2]
+        p1=p1.replace("=","")
+        if(p1 == "Position"):
+                p=0
+        else:
+            if(int (p1) <= int (p2)):
+                str1 = str(row[2])
+                str1 = str1.replace("="," ")   
+                file2.write(str1)
+                file2.write('\t')
+                str1 = str(row[1]) 
+                file2.write(str1)
+                file2.write('\t')
+                str1 = str(row[0]) 
+                file2.write(str1)
+                file2.write('\n')  
+ 
+    str1 = '\n=======MALE=======\n'  
+    file2.write(str1)
+    string1 = 'male'
+    
+    string2 = r2.get()
+    p2=(string1) + '_cy' + (string2) + '_top.csv'
+     
+    file1=open(p2)
+    cv_file=csv.reader(file1)
+    p2=r1.get()
+    for row in cv_file:
+        p1=row[2]
+        p1=p1.replace("=","")
+        if(p1 == "Position"):
+            p=0
+        else:
+            if(int (p1) <= int (p2)):
+                str1 = str(row[2])
+                str1 = str1.replace("=","")   
+                file2.write(str1)
+                file2.write('\t')
+                str1 = str(row[1]) 
+                file2.write(str1)
+                file2.write('\t')
+                str1 = str(row[0]) 
+                file2.write(str1)
+                file2.write('\n')  
+    file2.close()  
+    file3 = open("d2.txt","r")
+    t1.insert(END, file3.read())
+    ro1.mainloop() 
+def b():                       #FUNCTION
+    string1 = r3.get()
+    string1 = string1.lower()
+    string2 = 'both'
+    if(string1 == string2):   
+        bo()
+    else:
+        tol1() 
+def b1():                          #FUNCTION
+    string2=r3.get()
+    ye = r2.get()
+    p2=string2.lower() + '_cy' + str(ye) + '_top.csv'
+    file1=open(p2)
+    string1 = r1.get()
+    cv_file=csv.reader(file1)
+    head=next(cv_file)
+    for row in cv_file:
+        if(row[0] == string1.upper()):
+            gr()
+            return()
+    file1.close()
+    string1 = r3.get()
+    NAMES = [30]
+    NAMES[0]=""
+    p2=(string1.lower()) + '_cy' + (r2.get()) + '_top.csv'
+     
+    file1=open(p2)
+    cv_file=csv.reader(file1)
+    ro1 = Tk()
+    p2=r1.get()
+    for row in cv_file:
+        p1=row[2]
+        p1=p1.replace("=","")
+        if(p1 == "Position"):
+            p=0
+        else:
+            str1 = str(row[0])
+            s1 = str(r1.get())
+            if (str1.startswith(s1.upper())==True):    
+                str1 = str(row[0]) 
+                NAMES.append(str1)
+    Label(ro1,text='Select Name').grid(row=0)  
+    global rc   
+    rc = StringVar(ro1)
+    rc.set(NAMES[1]) 
+    w = apply(OptionMenu, (ro1, rc) + tuple(NAMES))    
+    Button(ro1,height=5,width=20,text='PLOT',command=gr1).grid(row=3,column=0,sticky=W,pady=4)
+    Button(ro1,height=5,width=20,text='EXIT',command=ro1.destroy).grid(row=3,column=1,sticky=W,pady=4)
+    
+    w.grid(row=0,column=1)
+    ro1.wm_title("GRAPH")             
+    ro1.mainloop()     
+ 
+def tol():              #FUNCTION        
+    entry=Tk()
+    GENDER=["Male","Female","Both"]
+    entry.wm_title("Top")
+    Label(entry,text='Enter Top').grid(row=0)
+    Label(entry,text='Select Year').grid(row=1)
+    Label(entry,text='Select Gender').grid(row=2)
+    global r1
+    r1=Entry(entry)
+    global r2
+    r2=StringVar(entry)
+    r2.set(op[0]) 
+    w = apply(OptionMenu, (entry, r2) + tuple(op))
+    global r3
+    r3=StringVar(entry)
+    r3.set(GENDER[0]) 
+    h1 = apply(OptionMenu, (entry, r3) + tuple(GENDER))
+    r1.grid(row=0,column=1)
+    w.grid(row=1,column=1)
+    h1.grid(row=2,column=1)
+    Button(entry,height=5,width=20,text='EXIT',command=entry.destroy).grid(row=3,column=1,sticky=W,pady=4)
+    Button(entry,height=5,width=20,text='SHOW',command=b).grid(row=3,column=0,sticky=W,pady=4)
+    entry.mainloop()
+def tol1():                        #FUNCTION
+    string1 = r3.get()
+    p2=(string1.lower()) + '_cy' + (r2.get()) + '_top.csv'
+     
+    file1=open(p2)
+    cv_file=csv.reader(file1)
+    ro1 = Tk()
+    t1 = Text(ro1, width=40, height=40)
+    str1 = Scrollbar(ro1)
+    str1.pack(side=RIGHT, fill=Y)
+    t1.pack(side=LEFT, fill=Y)
+    str1.config(command=t1.yview)
+    t1.config(yscrollcommand=str1.set)
+    p2=r1.get()
+    for row in cv_file:
+        p1=row[2]
+        p1=p1.replace("=","")
+        if(p1 == "Position"):
+            p=0
+        else:
+            if(int (p1) <= int (p2)): 
+                str1 = str(row[2])
+                str1 = str1.replace("=","")   
+                t1.insert(END,str1)
+                t1.insert(END,'\t')  
+                str1 = str(row[1]) 
+                t1.insert(END,str1)
+                t1.insert(END,'\t')
+                str1 = str(row[0]) 
+                t1.insert(END,str1)
+                t1.insert(END,'\n')
+    ro1.wm_title("Top")            
+    ro1.mainloop() 
+def mi():                     
+    ro1 = Tk()
+    global op
+    op=[70]
+    op[0] = '1945'
+    for j in range(1946,2014):
+        op.append(j)
+    fr= Frame(ro1,width=2600, height=3000)
+    ro1.wm_title("MINI PROJECT")
+    labl = Label(ro1,text = "BABIES NAME")  
+    bo_1 = Button(ro1,text="CLICK TO FIND TOP NAMES", command=tol)
+    bo_2 = Button(ro1,text="CLICK TO PLOT A GRAPH", command=gr2)
+    bo_3 = Button(ro1,text="EXIT", command=ro1.destroy)
+    bo_1.config( height = 15, width = 400 )
+    bo_2.config( height = 15, width = 400 )
+    bo_3.config( height = 15, width = 400 )
+    bo_1.pack()
+    bo_2.pack()
+    bo_3.pack()
+    fr.pack()
+    ro1.mainloop()
+if __name__ == "__main__":
+    mi()
